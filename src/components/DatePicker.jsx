@@ -76,7 +76,12 @@ const DatePicker = () => {
     });
   };
 
-  const generateRecurringDates = (startDate, recurrenceType, customRecurrence, endDate) => {
+  const generateRecurringDates = (
+    startDate,
+    recurrenceType,
+    customRecurrence,
+    endDate
+  ) => {
     const dates = [];
     let currentDate = new Date(startDate);
 
@@ -99,16 +104,24 @@ const DatePicker = () => {
         case "custom":
           switch (customRecurrence.type) {
             case "days":
-              currentDate.setDate(currentDate.getDate() + parseInt(customRecurrence.value));
+              currentDate.setDate(
+                currentDate.getDate() + parseInt(customRecurrence.value)
+              );
               break;
             case "weeks":
-              currentDate.setDate(currentDate.getDate() + (7 * parseInt(customRecurrence.value)));
+              currentDate.setDate(
+                currentDate.getDate() + 7 * parseInt(customRecurrence.value)
+              );
               break;
             case "months":
-              currentDate.setMonth(currentDate.getMonth() + parseInt(customRecurrence.value));
+              currentDate.setMonth(
+                currentDate.getMonth() + parseInt(customRecurrence.value)
+              );
               break;
             case "years":
-              currentDate.setFullYear(currentDate.getFullYear() + parseInt(customRecurrence.value));
+              currentDate.setFullYear(
+                currentDate.getFullYear() + parseInt(customRecurrence.value)
+              );
               break;
           }
           break;
@@ -123,16 +136,21 @@ const DatePicker = () => {
   const handleTaskSubmit = () => {
     if (!task || !endDate) return;
 
-    const recurringDates = generateRecurringDates(selectedDate, recurrence, customRecurrence, endDate);
+    const recurringDates = generateRecurringDates(
+      selectedDate,
+      recurrence,
+      customRecurrence,
+      endDate
+    );
 
-    const newTasks = recurringDates.map(date => ({
+    const newTasks = recurringDates.map((date) => ({
       date,
       task,
       recurrence,
       customRecurrence: recurrence === "custom" ? customRecurrence : null,
     }));
 
-    setTasks(prevTasks => [...prevTasks, ...newTasks]);
+    setTasks((prevTasks) => [...prevTasks, ...newTasks]);
 
     setTask("");
     setRecurrence("none");
@@ -335,7 +353,9 @@ const DatePicker = () => {
               <span>{selectedDate.toLocaleDateString()}</span>
             </div>
             <div className="mb-4 flex items-center">
-              <label className="block mb-1" htmlFor="end-date">End Date:</label>
+              <label className="block mb-1" htmlFor="end-date">
+                End Date:
+              </label>
               <input
                 id="end-date"
                 type="date"
@@ -358,14 +378,16 @@ const DatePicker = () => {
                 </div>
                 {(task === "" || !endDate) && (
                   <div className="bg-blue-500 rounded p-2">
-                    <Button onClick={() => setShowPopup(false)} className="w-full text-white rounded">
+                    <Button
+                      onClick={() => setShowPopup(false)}
+                      className="w-full text-white rounded"
+                    >
                       Close Task
                     </Button>
                   </div>
                 )}
               </div>
             </DialogFooter>
-
           </DialogContent>
         </Dialog>
       )}
